@@ -3,52 +3,64 @@ import flatpickr from 'flatpickr';
 // Дополнительный импорт стилей
 import 'flatpickr/dist/flatpickr.min.css';
 
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
+
 require('flatpickr/dist/themes/dark.css');
 
-//////////////////////////////// TODO
 
-//////////////////////////////////TODO
-
-/*
-
-Метод onClose() из обьекта параметров вызывается каждый раз при закрытии элемента интерфейса который создает flatpickr. Именно в нём стоит обрабатывать дату выбранную пользователем. Параметр selectedDates это массив выбранных дат, поэтому мы берем первый элемент.
-
-1.Если пользователь выбрал дату в прошлом, покажи window.alert() с текстом "Please choose a date in the future".
-
-
-*/
 const refs = {
   inputDate: document.querySelector('#datetime-picker'),
   startBtn: document.querySelector('button[data-start]'),
-  daysField: document.querySelector('span[data-days]'),
+  stopBtn: document.querySelector('button[data-stop]'),
+  days: document.querySelector('span[data-days]'),
   hours: document.querySelector('span[data-hours]'),
   mins: document.querySelector('span[data-minutes]'),
   secs: document.querySelector('span[data-seconds]'),
 };
-let inputValue = '';
-refs.startBtn.addEventListener('click', onStartBtnClick);
 
-function onStartBtnClick(event) {
-  // inputValue = event.value;
-  console.dir(refs.inputDate.value);
-  console.log(event.currentTarget);
-}
+
+const isActive = true;
+let userSelectedDate = Date.now();
+
+refs.startBtn.disabled = isActive;
+refs.startBtn.addEventListener('click', onStartBtnClick);
 
 const options = {
   enableTime: true,
   time_24hr: true,
   dateFormat: 'Y-m-d H:i',
-  disableMobile: 'true',
-  defaultDate: ' ',
+  defaultDate: new Date(),
   minuteIncrement: 1,
   onClose(selectedDates) {
-    console.log(selectedDates[0]);
+    activeBtn(selectedDates[0]);
   },
 };
+const fp = flatpickr(refs.inputDate, options);
 
-const fp = flatpickr('#datetime-picker', options);
-// console.log(fp.now());
-console.dir(fp.config.onClose);
+function activeBtn(date) {
+  if (Date.now() > date) {
+    Notify.failure('Please choose a date in the future');
+  } else {
+    Notify.success('The clock is ticking ...');
+    refs.startBtn.disabled = !isActive;
+    userSelectedDate = date;
+  }
+}
+
+function onStartBtnClick(event) {
+  refs.startBtn.disabled = isActive;
+  fp.destroy();
+  refs.inputDate.disabled = isActive;
+  countTimer();
+  console.log(countTimer);
+}
+
+function countTimer() {
+ setInterval(() => {
+    const convertedTime = convertMs(userSelectedDate - Date.now());
+    updateTimerValues(convertedTime);
+  }, 1000);
+}
 
 function convertMs(ms) {
   // Number of milliseconds per unit of time
@@ -58,16 +70,22 @@ function convertMs(ms) {
   const day = hour * 24;
 
   // Remaining days
-  const days = addLeadingZero(Math.floor(ms / day));
+  const days = Math.floor(ms / day);
   // Remaining hours
-  const hours = addLeadingZero(Math.floor((ms % day) / hour));
+  const hours = Math.floor((ms % day) / hour);
   // Remaining minutes
-  const minutes = addLeadingZero(Math.floor(((ms % day) % hour) / minute));
+  const minutes = Math.floor(((ms % day) % hour) / minute);
   // Remaining seconds
-  const seconds = addLeadingZero(Math.floor((((ms % day) % hour) % minute) / second));
+  const seconds = Math.floor((((ms % day) % hour) % minute) / second);
 
   return { days, hours, minutes, seconds };
-  addLeadingZero;
+}
+
+function updateTimerValues({ days, hours, minutes, seconds }) {
+  refs.days.textContent = addLeadingZero(days);
+  refs.hours.textContent = addLeadingZero(hours);
+  refs.mins.textContent = addLeadingZero(minutes);
+  refs.secs.textContent = addLeadingZero(seconds);
 }
 
 function addLeadingZero(value) {

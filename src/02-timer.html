@@ -9,28 +9,45 @@
   <body>
     <p><a href="index.html">Go back</a></p>
 
-    <input type="text" id="datetime-picker" />
-    <button type="button" data-start>Start</button>
+    
 
-    <div class="timer">
-      <div class="field">
-        <span class="value" data-days>00</span>
-        <span class="label">Days</span>
-      </div>
-      <div class="field">
-        <span class="value" data-hours>00</span>
-        <span class="label">Hours</span>
-      </div>
-      <div class="field">
-        <span class="value" data-minutes>00</span>
-        <span class="label">Minutes</span>
-      </div>
-      <div class="field">
-        <span class="value" data-seconds>00</span>
-        <span class="label">Seconds</span>
+    <div class="container">
+     <div class="date-box">
+        <input type="text" id="datetime-picker" />
+        <button type="button" data-start>Start</button>
+     </div>
+      <h1 class="headline">Countdown</h1>
+      <div class="timer">
+        <div class="field">
+          <span class="value" data-days>00</span>
+          <span class="label">Days</span>
+        </div>
+        <div class="field">
+          <span class="value" data-hours>00</span>
+          <span class="label">Hours</span>
+        </div>
+        <div class="field">
+          <span class="value" data-minutes>00</span>
+          <span class="label">Minutes</span>
+        </div>
+        <div class="field">
+          <span class="value" data-seconds>00</span>
+          <span class="label">Seconds</span>
+        </div>
       </div>
     </div>
 
     <script src="js/02-timer.js"></script>
   </body>
 </html>
+
+
+<!-- <span v-show="show" class="flip-clock__piece">
+  <span class="flip-clock__card flip-card">
+    <b class="flip-card__top">{{current | zerofill}}</b>
+    <b class="flip-card__bottom" data-value="{{current | zerofill}}"></b>
+    <b class="flip-card__back" data-value="{{previous | zerofill}}"></b>
+    <b class="flip-card__back-bottom" data-value="{{previous | zerofill}}"></b>
+  </span>
+  <span class="flip-clock__slot">{{property}}</span>
+</span>`, -->

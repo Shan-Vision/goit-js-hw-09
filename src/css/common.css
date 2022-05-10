@@ -1,5 +1,9 @@
 * {
   box-sizing: border-box;
+  margin: 0;  
+  padding: 0;
+
+
 }
 
 body {
@@ -7,7 +11,7 @@ body {
     Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #fafafa;
+  background-color: #ccc;
   color: #212121;
   line-height: 1.5;
 }
@@ -16,3 +20,67 @@ img {
   display: block;
   max-width: 100%;
 }
+
+
+.date-box{
+  height: 50px;
+  margin-bottom: 50px;
+}
+#datetime-picker{
+  height: 100%;
+  width: 200px;
+  text-align: center;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 20px;
+  font-weight: 700;
+  background-color: rgb(196, 219, 215);
+
+}
+button{
+  border: none;
+  border-radius: 10px;
+  background-color: rgba(153, 147, 150, 0.842);
+  height: 100%;
+  width: 100px;
+  font-family: inherit;
+  font-size: 20px;
+  font-weight: 700;
+  color: black;
+  text-align: center;
+  border-color: inherit;
+  cursor: pointer;
+  margin-left: 30px;
+}
+.container {
+  color: #333;
+  margin: 0 auto;
+  text-align: center;
+  
+}
+
+.headline {
+  font-weight: normal;
+  letter-spacing: .125rem;
+  text-transform: uppercase;
+}
+
+.field {
+  display: inline-block;
+  font-size: 1.5em;
+  list-style-type: none;
+  padding: 1em;
+  text-transform: uppercase;
+}
+
+.field span {
+  display: block;
+  font-size: 4.5rem;
+}
+.btn-container{
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  margin-top: 300px;
+}
+
